@@ -220,7 +220,10 @@ nav.hidden{transform:translateY(-100%)}
 .type>*{position:relative}
 .type .num{font-family:Sora;font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:8px}
 .type .num::before{content:"";width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,var(--orange),var(--gold));transform:rotate(45deg) scale(0);transition:transform .6s var(--ease) .2s}
-.types-grid .type{opacity:0;filter:blur(14px);transform:translateY(30px) scale(.97);transition:opacity 1s var(--ease),filter 1s var(--ease),transform 1s var(--ease),border-color .4s}
+.types-grid .type{opacity:0;filter:blur(22px);transform:translateY(50px) scale(.94);transition:opacity 1.8s var(--ease),filter 1.8s var(--ease),transform 1.8s var(--ease),border-color .4s,box-shadow 1.2s}
+.types-grid .type.vis{box-shadow:0 0 0 1px rgba(238,75,34,.35),0 20px 60px -25px rgba(238,75,34,.7)}
+.types-grid .type.vis::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%);background-size:250% 100%;animation:barrido 1.6s ease-out .3s 1 both;pointer-events:none}
+@keyframes barrido{from{background-position:120% 0}to{background-position:-60% 0}}
 .types-grid .type.vis{opacity:1;filter:none;transform:none}.types-grid .type.vis .num::before{transform:rotate(45deg) scale(1)}
 .types-grid .type h3 .cursor{display:inline-block;width:2px;height:1em;background:var(--orange);margin-left:2px;vertical-align:-2px;animation:parpadea .8s steps(1) infinite}
 @keyframes parpadea{50%{opacity:0}}
@@ -392,7 +395,6 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
   .hero-logo{width:150px;height:150px;right:auto;left:50%;margin-left:-75px;top:88px}
   .foot-top{grid-template-columns:1fr}
 }
-@media (prefers-reduced-motion:reduce){*:not(.track):not(.cubos-pag i):not(.scroll-hint):not(.cinta i):not(.nova-burb){animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.hero h1 .l span{transform:none}.hero-bottom{opacity:1}}
 /* Pendiente de contenido real: se muestran cuando haya fotos, logos, testimonios y video */
 #proyectos,.clients,.testi,#openReel,.menu a[href="#proyectos"],footer a[href="#proyectos"]{display:none!important}
 </style>
@@ -688,7 +690,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
 
 <script>
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduce=false; // el dueño quiere ver siempre las animaciones
 $('#yr').textContent=new Date().getFullYear();
 
 /* nav + progress */
@@ -783,9 +785,9 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 $$('.reveal,#timeline').forEach(el=>io.observe(el));
 
 /* ===== Eventos que producimos: aparecen difuminados y el título se escribe solo, uno tras otro ===== */
-(function(){const cards=[...$$('.types-grid .type')];cards.forEach(c=>{const h=c.querySelector('h3'),p=c.querySelector('p');c.dataset.t=h.textContent;h.textContent='';if(p)p.style.opacity=0;if(p)p.style.transition='opacity .8s'});
+(function(){const cards=[...$$('.types-grid .type')];cards.forEach(c=>{const h=c.querySelector('h3'),p=c.querySelector('p');c.dataset.t=h.textContent;h.textContent='';if(p)p.style.opacity=0;if(p)p.style.transition='opacity 1.4s'});
 let hecho=false;const go=()=>{if(hecho)return;hecho=true;let i=0;(function sig(){if(i>=cards.length)return;const c=cards[i++],h=c.querySelector('h3'),p=c.querySelector('p'),t=c.dataset.t;c.classList.add('vis');let k=0;h.innerHTML='<span class="cursor"></span>';
-const tm=setInterval(()=>{k++;h.innerHTML=t.slice(0,k)+'<span class="cursor"></span>';if(k>=t.length){clearInterval(tm);setTimeout(()=>{h.textContent=t;if(p)p.style.opacity=1},250);setTimeout(sig,180)}},reduce?0:38)})()};
+const tm0=setTimeout(()=>{},0);const tm=setInterval(()=>{k++;h.innerHTML=t.slice(0,k)+'<span class="cursor"></span>';if(k>=t.length){clearInterval(tm);setTimeout(()=>{h.textContent=t;if(p)p.style.opacity=1},350);setTimeout(sig,650)}},75)})()};
 const o=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){go();o.disconnect()}},{threshold:.25});o.observe($('.types-grid'))})();
 /* ===== Tipos: luz que sigue al mouse ===== */
 $$('.type').forEach(c=>c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--x',(e.clientX-r.left)+'px');c.style.setProperty('--y',(e.clientY-r.top)+'px')}));
