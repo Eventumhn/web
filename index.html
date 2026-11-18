@@ -98,6 +98,25 @@ nav.hidden{transform:translateY(-100%)}
 @keyframes late{50%{transform:scale(1.25);opacity:.5}}
 @keyframes aparece{to{opacity:1}}
 
+/* Cubos flotando en toda la página (moderados, como en la app) */
+.cubos-pag{position:fixed;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+.cubos-pag i{position:absolute;bottom:-40px;width:14px;height:14px;border-radius:4px;opacity:0;animation:subeCubo 18s linear infinite}
+.cubos-pag i:nth-child(1){left:5%;width:12px;height:12px;background:#ee4b22;animation-delay:0s;animation-duration:18s}
+.cubos-pag i:nth-child(2){left:14%;width:9px;height:9px;background:#9d87c0;animation-delay:3s;animation-duration:22s}
+.cubos-pag i:nth-child(3){left:23%;width:15px;height:15px;background:#f39c1f;animation-delay:6s;animation-duration:20s}
+.cubos-pag i:nth-child(4){left:31%;width:10px;height:10px;background:#5b3e99;animation-delay:9s;animation-duration:24s}
+.cubos-pag i:nth-child(5){left:40%;width:13px;height:13px;background:#f07022;animation-delay:1.5s;animation-duration:19s}
+.cubos-pag i:nth-child(6){left:48%;width:8px;height:8px;background:#b9a6ff;animation-delay:4.5s;animation-duration:23s}
+.cubos-pag i:nth-child(7){left:57%;width:16px;height:16px;background:#ee4b22;animation-delay:7.5s;animation-duration:21s}
+.cubos-pag i:nth-child(8){left:65%;width:11px;height:11px;background:#9d87c0;animation-delay:10.5s;animation-duration:25s}
+.cubos-pag i:nth-child(9){left:72%;width:9px;height:9px;background:#f39c1f;animation-delay:2s;animation-duration:20s}
+.cubos-pag i:nth-child(10){left:80%;width:14px;height:14px;background:#5b3e99;animation-delay:5s;animation-duration:22s}
+.cubos-pag i:nth-child(11){left:88%;width:10px;height:10px;background:#f07022;animation-delay:8s;animation-duration:19s}
+.cubos-pag i:nth-child(12){left:94%;width:12px;height:12px;background:#b9a6ff;animation-delay:11s;animation-duration:24s}
+.cubos-pag i:nth-child(13){left:36%;width:8px;height:8px;background:#ee4b22;animation-delay:12.5s;animation-duration:26s}
+.cubos-pag i:nth-child(14){left:61%;width:13px;height:13px;background:#9d87c0;animation-delay:13.5s;animation-duration:21s}
+@keyframes subeCubo{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.35}85%{opacity:.35}100%{transform:translateY(-110vh) rotate(320deg);opacity:0}}
+@media (max-width:600px){.cubos-pag i:nth-child(n+9){display:none}}
 /* HERO */
 .hero{min-height:100vh;padding:130px 0 0;display:flex;align-items:flex-end;overflow:hidden}
 #stage{position:absolute;inset:0;width:100%;height:100%}
@@ -122,29 +141,43 @@ nav.hidden{transform:translateY(-100%)}
 .play{display:inline-flex;align-items:center;gap:14px;font-weight:600}
 .play i{width:56px;height:56px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);display:grid;place-items:center;transition:.3s var(--ease)}
 .play:hover i{background:#fff;color:var(--bg);transform:scale(1.06)}
-.scroll-hint{position:absolute;right:28px;bottom:36px;z-index:2;writing-mode:vertical-rl;font-size:.72rem;letter-spacing:.3em;color:var(--muted);display:flex;align-items:center;gap:12px}
-.scroll-hint::after{content:"";width:1px;height:50px;background:linear-gradient(var(--muted),transparent);animation:drop 2s infinite}
-@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.scroll-hint{position:absolute;left:50%;bottom:18px;z-index:2;width:2px;height:120px;margin-left:-1px;background:rgba(246,242,255,.12);border-radius:2px;overflow:hidden}
+.scroll-hint::after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:linear-gradient(transparent,var(--orange),var(--gold));animation:drop 2.2s ease-in-out infinite}
+.scroll-hint::before{content:"";position:absolute;left:50%;bottom:0;width:8px;height:8px;margin-left:-4px;border-radius:2px;background:var(--orange);transform:rotate(45deg)}
+@keyframes drop{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
 
 /* MARQUEE */
 .marquee{border-block:1px solid var(--line);padding:26px 0;overflow:hidden;background:var(--bg)}
-.track{display:flex;gap:56px;width:max-content;animation:scroll 38s linear infinite}
+.track{display:flex;gap:56px;width:max-content;animation:scroll 46s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
 .track span{font-family:Sora;font-size:clamp(1.3rem,2.4vw,2rem);font-weight:700;white-space:nowrap;display:flex;align-items:center;gap:56px}
 .track span::after{content:"";width:14px;height:14px;background:var(--orange);transform:rotate(45deg);flex:none}
 .track span:nth-child(even){color:transparent;-webkit-text-stroke:1px rgba(246,242,255,.5)}
 @keyframes scroll{to{transform:translateX(-50%)}}
 
 /* MANIFESTO + STATS */
-.manifesto .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:end}
+.manifesto .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;align-items:center}
 .manifesto h2{font-size:clamp(1.9rem,3.6vw,3rem);font-weight:600;line-height:1.2}
 .manifesto h2 .w{opacity:.18;transition:opacity .4s}
 .manifesto h2 .w.on{opacity:1}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.stat{background:var(--bg);padding:30px 26px}
-.stat b{display:block;font-family:Sora;font-size:clamp(2.4rem,4vw,3.4rem);font-weight:800;line-height:1}
-.stat b sup{font-size:.5em;color:var(--orange)}
-.stat span{color:var(--muted);font-size:.9rem;display:block;margin-top:8px}
+.manifesto-sub{margin-top:26px;font-size:clamp(1.1rem,1.8vw,1.4rem);color:var(--muted);max-width:560px;line-height:1.5}.manifesto-sub b{color:var(--gold);font-weight:600}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat{position:relative;overflow:hidden;border-radius:22px;padding:38px 30px;min-height:210px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid rgba(255,255,255,.08);transition:transform .4s var(--ease)}
+.stat:hover{transform:translateY(-6px) rotate(-.5deg)}
+.stat::before{content:"";position:absolute;inset:-40%;opacity:.55;filter:blur(40px);animation:spin 16s linear infinite}
+.stat:nth-child(1){background:linear-gradient(145deg,#3a1460,#1a0c36)}.stat:nth-child(1)::before{background:conic-gradient(from 0deg,#ee4b22,transparent 40%,#f2b84b,transparent 80%)}
+.stat:nth-child(2){background:linear-gradient(145deg,#4a1a2a,#1a0c36)}.stat:nth-child(2)::before{background:conic-gradient(from 90deg,#f2b84b,transparent 40%,#ee4b22,transparent 80%)}
+.stat:nth-child(3){background:linear-gradient(145deg,#26145c,#1a0c36)}.stat:nth-child(3)::before{background:conic-gradient(from 180deg,#b9a6ff,transparent 40%,#6b3fd1,transparent 80%)}
+.stat:nth-child(4){background:linear-gradient(145deg,#4a2010,#1a0c36)}.stat:nth-child(4)::before{background:conic-gradient(from 270deg,#ee4b22,transparent 40%,#b9a6ff,transparent 80%)}
+.stat>*{position:relative}
+.stat b{display:block;font-family:Sora;font-size:clamp(4rem,8vw,6.6rem);font-weight:800;line-height:.9;letter-spacing:-.04em;color:#fff;text-shadow:0 0 30px rgba(242,184,75,.45),0 4px 0 rgba(0,0,0,.2)}
+.stat b sup{font-size:.45em;color:var(--gold)}
+.stat>span{color:rgba(246,242,255,.85);font-size:1rem;display:block;margin-top:12px;font-weight:500}
 
+/* Cinta brillante entre secciones */
+.cinta{position:relative;height:6px;background:linear-gradient(90deg,#6b3fd1,var(--orange),var(--gold),var(--orange),#6b3fd1);box-shadow:0 0 24px rgba(238,75,34,.75),0 0 60px rgba(242,184,75,.35);overflow:hidden;z-index:3}
+.cinta i{position:absolute;top:0;left:-30%;width:30%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);animation:brilloCinta 3s ease-in-out infinite}
+@keyframes brilloCinta{to{left:110%}}
 /* CAPABILITIES (tabs) */
 .caps{background:var(--bg2)}
 .caps-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:50px}
@@ -157,7 +190,10 @@ nav.hidden{transform:translateY(-100%)}
 .tab.active .ar{opacity:1;transform:none}
 .panel{position:relative;border-radius:24px;overflow:hidden;min-height:480px;border:1px solid var(--line);background:var(--card)}
 .panel canvas{position:absolute;inset:0;width:100%;height:100%}
-.panel-body{position:absolute;inset:auto 0 0 0;padding:34px;background:linear-gradient(transparent,rgba(14,7,32,.95) 45%)}
+.fotos{position:absolute;inset:0}.fotos img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.2s ease,transform 6s ease}
+.fotos img.on{opacity:.85;transform:scale(1)}
+.foto-tag{position:absolute;top:16px;right:16px;font-size:.7rem;padding:5px 10px;border-radius:999px;background:rgba(14,7,32,.6);border:1px dashed rgba(255,255,255,.3);color:var(--muted)}
+.panel-body{position:absolute;inset:auto 0 0 0;padding:34px;background:linear-gradient(transparent,rgba(14,7,32,.96) 40%);z-index:2}
 .panel-body h3{font-size:1.7rem;margin-bottom:10px}
 .panel-body p{color:rgba(246,242,255,.8);margin-bottom:18px;max-width:520px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -170,7 +206,12 @@ nav.hidden{transform:translateY(-100%)}
 .type:hover{transform:translateY(-6px);border-color:rgba(238,75,34,.5)}
 .type:hover::before{opacity:1}
 .type>*{position:relative}
-.type .num{font-family:Sora;font-size:.85rem;color:var(--muted)}
+.type .num{font-family:Sora;font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:8px}
+.type .num::before{content:"";width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,var(--orange),var(--gold));transform:rotate(45deg) scale(0);transition:transform .6s var(--ease) .2s}
+.types-grid .type{opacity:0;filter:blur(14px);transform:translateY(30px) scale(.97);transition:opacity 1s var(--ease),filter 1s var(--ease),transform 1s var(--ease),border-color .4s}
+.types-grid .type.vis{opacity:1;filter:none;transform:none}.types-grid .type.vis .num::before{transform:rotate(45deg) scale(1)}
+.types-grid .type h3 .cursor{display:inline-block;width:2px;height:1em;background:var(--orange);margin-left:2px;vertical-align:-2px;animation:parpadea .8s steps(1) infinite}
+@keyframes parpadea{50%{opacity:0}}
 .type h3{font-size:1.45rem;margin-bottom:8px}
 .type p{color:var(--muted);font-size:.93rem}
 
@@ -213,8 +254,13 @@ nav.hidden{transform:translateY(-100%)}
 .timeline::before{content:"";position:absolute;top:26px;left:0;right:0;height:1.5px;background:var(--line)}
 .tl-fill{position:absolute;top:26px;left:0;height:1.5px;background:linear-gradient(90deg,var(--orange),var(--gold));width:0;transition:width 1.6s var(--ease)}
 .tl{padding-right:22px;position:relative}
-.tl .c{width:54px;height:54px;border-radius:50%;background:var(--bg2);border:1.5px solid var(--line);display:grid;place-items:center;font-family:Sora;font-weight:700;margin-bottom:22px;transition:.5s}
-.timeline.in .tl .c{border-color:var(--orange);background:var(--orange)}
+.tl .c{width:54px;height:54px;border-radius:14px;transform:rotate(45deg);background:var(--bg2);border:1.5px solid var(--line);display:grid;place-items:center;font-family:Sora;font-weight:800;margin-bottom:26px;transition:.6s var(--ease)}
+.tl .c>*{transform:rotate(-45deg)}
+.timeline.in .tl .c{border-color:transparent;background:linear-gradient(135deg,var(--orange),var(--gold));box-shadow:0 0 0 6px rgba(238,75,34,.15),0 10px 30px -6px rgba(238,75,34,.7)}
+.timeline.in .tl:nth-child(3) .c{transition-delay:.25s}.timeline.in .tl:nth-child(4) .c{transition-delay:.5s}.timeline.in .tl:nth-child(5) .c{transition-delay:.75s}.timeline.in .tl:nth-child(6) .c{transition-delay:1s}
+.tl>div:last-child{background:rgba(30,18,56,.55);border:1px solid var(--line);border-radius:16px;padding:16px 16px 18px;margin-right:10px;transition:.35s var(--ease)}
+.tl:hover>div:last-child{border-color:rgba(238,75,34,.55);transform:translateY(-5px);background:rgba(238,75,34,.08)}
+.tl-fill{box-shadow:0 0 14px rgba(238,75,34,.8)}
 .tl h3{font-size:1.1rem;margin-bottom:8px}
 .tl p{color:var(--muted);font-size:.9rem}
 
@@ -274,11 +320,23 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
 .social a{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:.25s}
 .social a:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-3px)}
 .social svg{width:19px;height:19px}
-.mega{font-family:Sora;font-weight:800;font-size:clamp(4rem,19vw,17rem);line-height:.8;letter-spacing:-.05em;margin-top:60px;text-align:center;background:linear-gradient(180deg,rgba(246,242,255,.14),rgba(246,242,255,0));-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none}
+.mega{font-family:Sora;font-weight:800;font-size:clamp(3rem,13vw,11.5rem);line-height:.9;letter-spacing:-.03em;white-space:nowrap;margin-top:60px;text-align:center;background:linear-gradient(180deg,rgba(246,242,255,.14),rgba(246,242,255,0));-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none}
 .foot-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.82rem;margin-top:10px}
 
+/* Nova: asistente virtual dentro de la web */
+.nova-btn{position:fixed;right:24px;bottom:24px;z-index:90;display:flex;align-items:center;gap:10px}
+.nova-ic{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,#2a1460,#160c2c);border:1.5px solid rgba(238,75,34,.6);box-shadow:0 14px 34px -8px rgba(238,75,34,.7);transition:.3s var(--ease)}
+.nova-ic .brand-logo{width:38px;height:38px}
+.nova-btn:hover .nova-ic{transform:scale(1.08) rotate(-6deg)}
+.nova-burb{background:#fff;color:#1a0c36;font-weight:700;font-size:.9rem;padding:9px 14px;border-radius:16px 16px 4px 16px;box-shadow:0 10px 30px -10px rgba(0,0,0,.6);animation:burb 4s ease-in-out infinite}
+@keyframes burb{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.nova-panel{position:fixed;right:24px;bottom:100px;z-index:95;width:min(380px,calc(100vw - 32px));height:min(560px,calc(100vh - 140px));border-radius:22px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -20px rgba(0,0,0,.8);opacity:0;transform:translateY(20px) scale(.97);pointer-events:none;transition:.35s var(--ease);background:#0e0720}
+.nova-panel.open{opacity:1;transform:none;pointer-events:auto}
+.nova-panel iframe{width:100%;height:100%;border:0}
+.nova-x{position:absolute;top:10px;right:12px;z-index:2;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);font-size:1.2rem}
+@media (max-width:600px){.nova-burb{display:none}.nova-panel{right:16px;bottom:96px}}
 /* WhatsApp */
-.wa{position:fixed;right:24px;bottom:24px;z-index:70;width:62px;height:62px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 14px 34px -8px rgba(37,211,102,.7);transition:.3s var(--ease)}
+.wa{display:none;position:fixed;right:24px;bottom:24px;z-index:70;width:62px;height:62px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 14px 34px -8px rgba(37,211,102,.7);transition:.3s var(--ease)}
 .wa:hover{transform:scale(1.1) rotate(-6deg)}
 .wa svg{width:32px;height:32px;color:#fff}
 
@@ -329,6 +387,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
 </head>
 <body>
 <div id="progress"></div>
+<div class="cubos-pag" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
 
 <nav id="nav">
@@ -342,7 +401,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
       <a href="#contacto">Contacto</a>
     </div>
     <div class="nav-right">
-      <a class="btn btn-primary nav-cta" href="https://app.eventumhn.com/cotizacion.html" target="_blank" rel="noopener">Cotizar evento <span class="arrow">→</span></a>
+      <a class="btn btn-primary nav-cta" href="https://cotiza.eventumhn.com/" target="_blank" rel="noopener">Cotizar evento <span class="arrow">→</span></a>
       <button class="burger" id="burger" aria-label="Menú">☰</button>
     </div>
   </div>
@@ -360,24 +419,24 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
     <h1>
       <span class="l"><span>Tú lo imaginas.</span></span>
       <span class="l"><span class="grad">Nosotros</span></span>
-      <span class="l"><span><span class="thin">lo</span> encendemos.</span></span>
+      <span class="l"><span>lo encendemos.</span></span>
     </h1>
     <div class="hero-bottom">
       <p>Más de una década convirtiendo ideas en experiencias inolvidables: pantallas LED, iluminación, sonido, escenarios y producción completa para marcas que no aceptan menos que perfecto.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="https://app.eventumhn.com/cotizacion.html" target="_blank" rel="noopener">Solicitar cotización <span class="arrow">→</span></a>
+        <a class="btn btn-primary" href="https://cotiza.eventumhn.com/" target="_blank" rel="noopener">Solicitar cotización <span class="arrow">→</span></a>
         <button class="play" id="openReel"><i>▶</i> Ver showreel</button>
       </div>
     </div>
   </div>
-  <div class="scroll-hint">SCROLL</div>
+  <div class="scroll-hint" aria-hidden="true"></div>
 </header>
 
 <!-- MARQUEE -->
 <div class="marquee" aria-hidden="true">
   <div class="track">
-    <span>Pantallas LED</span><span>Iluminación</span><span>Sonido profesional</span><span>Tarimas y escenarios</span><span>Streaming en vivo</span><span>Decoración</span><span>Catering</span><span>Entretenimiento</span>
-    <span>Pantallas LED</span><span>Iluminación</span><span>Sonido profesional</span><span>Tarimas y escenarios</span><span>Streaming en vivo</span><span>Decoración</span><span>Catering</span><span>Entretenimiento</span>
+    <span>Pantallas LED</span><span>Iluminación</span><span>Sonido profesional</span><span>Tarimas y escenarios</span><span>Mobiliario</span><span>Show</span><span>Streaming en vivo</span><span>Decoración</span><span>Catering</span><span>Entretenimiento</span><span>Y todo lo que imagines</span>
+    <span>Pantallas LED</span><span>Iluminación</span><span>Sonido profesional</span><span>Tarimas y escenarios</span><span>Mobiliario</span><span>Show</span><span>Streaming en vivo</span><span>Decoración</span><span>Catering</span><span>Entretenimiento</span><span>Y todo lo que imagines</span>
   </div>
 </div>
 
@@ -386,7 +445,8 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
   <div class="wrap">
     <div>
       <span class="eyebrow">Quiénes somos</span>
-      <h2 id="manifesto">El primer planner especializado en eventos corporativos de Honduras. Unimos creatividad, tecnología y logística para que tu marca brille en cada escenario.</h2>
+      <h2 id="manifesto">El primer planner especializado en eventos corporativos de Honduras.</h2>
+      <p class="manifesto-sub reveal">Unimos <b>creatividad</b>, <b>tecnología</b> y <b>logística</b> para que tu marca brille en cada escenario.</p>
     </div>
     <div class="stats reveal">
       <div class="stat"><b><span class="count" data-to="10">0</span><sup>+</sup></b><span>años creando experiencias</span></div>
@@ -397,6 +457,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
   </div>
 </section>
 
+<div class="cinta" aria-hidden="true"><i></i></div>
 <!-- CAPACIDADES -->
 <section class="caps" id="capacidades">
   <div class="wrap">
@@ -405,7 +466,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
         <span class="eyebrow">Capacidades</span>
         <h2 class="h2">Todo lo que tu evento <em>necesita,</em><br>en un solo equipo.</h2>
       </div>
-      <p class="lead">Un solo proveedor, una sola coordinación, cero excusas.</p>
+      <p class="lead">Un solo proveedor y una sola coordinación para todo tu evento.</p>
     </div>
     <div class="caps-grid">
       <div class="tabs" role="tablist">
@@ -417,6 +478,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
       </div>
       <div class="panel">
         <canvas id="panelArt"></canvas>
+        <div class="fotos" id="fotos"></div><span class="foto-tag">Fotos de referencia</span>
         <div class="panel-body">
           <h3 id="pTitle"></h3>
           <p id="pText"></p>
@@ -433,12 +495,12 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
     <span class="eyebrow">Para qué nos buscan</span>
     <h2 class="h2">Eventos que <em>producimos</em></h2>
     <div class="types-grid">
-      <div class="type reveal"><span class="num">01</span><div><h3>Lanzamientos de marca</h3><p>Revelaciones de producto con impacto visual y momento "wow".</p></div></div>
-      <div class="type reveal d1"><span class="num">02</span><div><h3>Convenciones y congresos</h3><p>Plenarias, salones simultáneos, registro y logística de invitados.</p></div></div>
-      <div class="type reveal d2"><span class="num">03</span><div><h3>Galas y premiaciones</h3><p>Escenografía, guion técnico y show para noches memorables.</p></div></div>
-      <div class="type reveal"><span class="num">04</span><div><h3>Activaciones BTL</h3><p>Experiencias de marca en punto de venta, centros comerciales y calle.</p></div></div>
-      <div class="type reveal d1"><span class="num">05</span><div><h3>Conferencias híbridas</h3><p>Presencial + transmisión en vivo para audiencias en todo el país.</p></div></div>
-      <div class="type reveal d2"><span class="num">06</span><div><h3>Fiestas corporativas</h3><p>Fin de año, aniversarios e integración con DJ, luces y catering.</p></div></div>
+      <div class="type"><span class="num">01</span><div><h3>Lanzamientos de marca</h3><p>Revelaciones de producto con impacto visual y momento "wow".</p></div></div>
+      <div class="type"><span class="num">02</span><div><h3>Convenciones y congresos</h3><p>Plenarias, salones simultáneos, registro y logística de invitados.</p></div></div>
+      <div class="type"><span class="num">03</span><div><h3>Galas y premiaciones</h3><p>Escenografía, guion técnico y show para noches memorables.</p></div></div>
+      <div class="type"><span class="num">04</span><div><h3>Activaciones BTL</h3><p>Experiencias de marca en punto de venta, centros comerciales y calle.</p></div></div>
+      <div class="type"><span class="num">05</span><div><h3>Conferencias híbridas</h3><p>Presencial + transmisión en vivo para audiencias en todo el país.</p></div></div>
+      <div class="type"><span class="num">06</span><div><h3>Fiestas corporativas</h3><p>Fin de año, aniversarios e integración con DJ, luces y catering.</p></div></div>
     </div>
   </div>
 </section>
@@ -474,7 +536,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
       <p class="big-quote">En un evento corporativo, <span>tu reputación</span> está sobre el escenario. Nosotros la cuidamos.</p>
     </div>
     <div class="checks">
-      <div class="check reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><h4>Un solo responsable</h4><p>Un coordinador dedicado de principio a fin: un número, una persona, cero vueltas.</p></div></div>
+      <div class="check reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><h4>Una coordinadora dedicada</h4><p>Una sola persona te acompaña de principio a fin y conoce cada detalle de tu evento: le escribes a ella y todo se resuelve.</p></div></div>
       <div class="check reveal d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><h4>Cotización con seguimiento</h4><p>Cada solicitud recibe su número; apruebas o pides cambios en línea.</p></div></div>
       <div class="check reveal d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><h4>Pruebas técnicas antes del show</h4><p>Ensayamos audio, video y luces antes de que llegue tu primer invitado.</p></div></div>
       <div class="check reveal d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg><div><h4>Medimos tu satisfacción</h4><p>Después de cada evento te preguntamos cómo lo hicimos, y lo mejoramos.</p></div></div>
@@ -487,13 +549,14 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
   <div class="wrap">
     <span class="eyebrow">Cómo trabajamos</span>
     <h2 class="h2">De la idea al aplauso, <em>en 5 pasos</em></h2>
+    <p class="lead">Un proceso claro para que sepas siempre en qué va tu evento, sin sorpresas.</p>
     <div class="timeline" id="timeline">
       <div class="tl-fill" id="tlFill"></div>
-      <div class="tl"><div class="c">1</div><div><h3>Brief</h3><p>Llenas la solicitud en 2 minutos o nos escribes por WhatsApp.</p></div></div>
-      <div class="tl"><div class="c">2</div><div><h3>Propuesta</h3><p>Recibes tu cotización con número de seguimiento.</p></div></div>
-      <div class="tl"><div class="c">3</div><div><h3>Diseño técnico</h3><p>Planos, render del montaje, guion técnico y cronograma.</p></div></div>
-      <div class="tl"><div class="c">4</div><div><h3>Montaje y show</h3><p>Nuestro equipo produce, opera y resuelve en vivo.</p></div></div>
-      <div class="tl"><div class="c">5</div><div><h3>Cierre</h3><p>Desmontaje, entrega y encuesta de satisfacción.</p></div></div>
+      <div class="tl"><div class="c"><span>1</span></div><div><h3>Brief</h3><p>Llenas la solicitud en 2 minutos o nos escribes por WhatsApp.</p></div></div>
+      <div class="tl"><div class="c"><span>2</span></div><div><h3>Propuesta</h3><p>Recibes tu cotización con número de seguimiento.</p></div></div>
+      <div class="tl"><div class="c"><span>3</span></div><div><h3>Diseño técnico</h3><p>Planos, render del montaje, guion técnico y cronograma.</p></div></div>
+      <div class="tl"><div class="c"><span>4</span></div><div><h3>Montaje y show</h3><p>Nuestro equipo produce, opera y resuelve en vivo.</p></div></div>
+      <div class="tl"><div class="c"><span>5</span></div><div><h3>Cierre</h3><p>Desmontaje, entrega y encuesta de satisfacción.</p></div></div>
     </div>
   </div>
 </section>
@@ -549,8 +612,8 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
       <h2>¿Hablamos de tu<br>próximo evento?</h2>
       <p>Agenda un café con Eventum. Cuéntanos tu idea y la convertimos en una experiencia inolvidable.</p>
       <div class="cta-actions">
-        <a class="btn btn-white" href="https://app.eventumhn.com/cotizacion.html" target="_blank" rel="noopener">Solicitar cotización <span class="arrow">→</span></a>
-        <a class="btn btn-ghost" href="https://wa.me/50433618584?text=Hola%20Eventum%2C%20quiero%20agendar%20un%20caf%C3%A9%20para%20hablar%20de%20mi%20evento" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+        <a class="btn btn-white" href="https://cotiza.eventumhn.com/" target="_blank" rel="noopener">Solicitar cotización <span class="arrow">→</span></a>
+        <button class="btn btn-ghost" type="button" data-nova>Escribir a Nova, nuestra asistente</button>
       </div>
     </div>
   </div>
@@ -575,7 +638,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
         <p>Tu opinión nos ayuda a crear eventos cada vez mejores. Te toma menos de 2 minutos.</p>
         <div class="stars">★★★★★</div>
       </div>
-      <a class="btn btn-primary" style="align-self:flex-start" href="https://app.eventumhn.com/encuesta.html" target="_blank" rel="noopener">Responder encuesta <span class="arrow">→</span></a>
+      <a class="btn btn-primary" style="align-self:flex-start" href="https://encuesta.eventumhn.com/" target="_blank" rel="noopener">Responder encuesta <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -593,17 +656,16 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
         </div>
       </div>
       <div><h4>EXPLORA</h4><ul><li><a href="#capacidades">Capacidades</a></li><li><a href="#proyectos">Proyectos</a></li><li><a href="#proceso">Proceso</a></li><li><a href="#faq">Preguntas</a></li></ul></div>
-      <div><h4>CLIENTES</h4><ul><li><a href="https://app.eventumhn.com/cotizacion.html" target="_blank" rel="noopener">Solicitar cotización</a></li><li><a href="https://app.eventumhn.com/encuesta.html" target="_blank" rel="noopener">Encuesta de satisfacción</a></li><li><a href="https://wa.me/50433618584" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
+      <div><h4>CLIENTES</h4><ul><li><a href="https://cotiza.eventumhn.com/" target="_blank" rel="noopener">Solicitar cotización</a></li><li><a href="https://encuesta.eventumhn.com/" target="_blank" rel="noopener">Encuesta de satisfacción</a></li><li><a href="https://wa.me/50433618584" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
       <div><h4>CONTACTO</h4><ul><li>info@eventum.hn</li><li>+504 3361-8584</li><li>San Pedro Sula, Honduras</li></ul></div>
     </div>
     <div class="mega">EVENTUM</div>
-    <div class="foot-bottom"><span>© <span id="yr"></span> Eventum. Todos los derechos reservados.</span><span>Hecho en Honduras 🇭🇳</span></div>
+    <div class="foot-bottom"><span>© <span id="yr"></span> Eventum. Todos los derechos reservados.</span></div>
   </div>
 </footer>
 
-<a class="wa" href="https://wa.me/50433618584?text=Hola%20Eventum%2C%20quiero%20cotizar%20un%20evento" target="_blank" rel="noopener" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1112 21.8zM20.5 3.5A11.8 11.8 0 001.7 17.6L0 24l6.5-1.7A11.8 11.8 0 0020.5 3.5z"/></svg>
-</a>
+<button class="nova-btn" id="novaBtn" type="button" aria-label="Chatear con Nova"><span class="nova-burb">¿Chateamos? 👋</span><span class="nova-ic"><span class="brand-logo"></span></span></button>
+<div class="nova-panel" id="novaPanel" aria-hidden="true"><button class="nova-x" id="novaX" type="button" aria-label="Cerrar">×</button><iframe id="novaFrame" title="Nova, asistente de Eventum" loading="lazy"></iframe></div>
 
 <div class="modal" id="reel">
   <div class="modal-inner">
@@ -708,6 +770,11 @@ function count(el){const to=+el.dataset.to;let s=null;const step=ts=>{if(!s)s=ts
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('.count').forEach(count);if(e.target.id==='timeline')$('#tlFill').style.width='100%';io.unobserve(e.target)}}),{threshold:.15});
 $$('.reveal,#timeline').forEach(el=>io.observe(el));
 
+/* ===== Eventos que producimos: aparecen difuminados y el título se escribe solo, uno tras otro ===== */
+(function(){const cards=[...$$('.types-grid .type')];cards.forEach(c=>{const h=c.querySelector('h3'),p=c.querySelector('p');c.dataset.t=h.textContent;h.textContent='';if(p)p.style.opacity=0;if(p)p.style.transition='opacity .8s'});
+let hecho=false;const go=()=>{if(hecho)return;hecho=true;let i=0;(function sig(){if(i>=cards.length)return;const c=cards[i++],h=c.querySelector('h3'),p=c.querySelector('p'),t=c.dataset.t;c.classList.add('vis');let k=0;h.innerHTML='<span class="cursor"></span>';
+const tm=setInterval(()=>{k++;h.innerHTML=t.slice(0,k)+'<span class="cursor"></span>';if(k>=t.length){clearInterval(tm);setTimeout(()=>{h.textContent=t;if(p)p.style.opacity=1},250);setTimeout(sig,180)}},reduce?0:38)})()};
+const o=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){go();o.disconnect()}},{threshold:.25});o.observe($('.types-grid'))})();
 /* ===== Tipos: luz que sigue al mouse ===== */
 $$('.type').forEach(c=>c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--x',(e.clientX-r.left)+'px');c.style.setProperty('--y',(e.clientY-r.top)+'px')}));
 
@@ -726,7 +793,11 @@ function setCap(i){
   $$('.tab').forEach((b,j)=>b.classList.toggle('active',j==i));
   const k=caps[i];$('#pTitle').textContent=k.t;$('#pText').textContent=k.d;
   $('#pChips').innerHTML=k.c.map(s=>`<span class="chip">${s}</span>`).join('');mode=k.m;
+  ponerFotos(i);
 }
+/* Fotos de referencia por apartado (temporales, de Unsplash: se cambian por fotos reales de Eventum) */
+const FOTOS={"0": ["https://unsplash.com/photos/xdC1UrzmYiA/download?w=1400", "https://unsplash.com/photos/gKgL1WlE5KM/download?w=1400", "https://unsplash.com/photos/V1O0gBfbrO8/download?w=1400"], "1": ["https://unsplash.com/photos/nwsfGFADJu8/download?w=1400", "https://unsplash.com/photos/xdC1UrzmYiA/download?w=1400", "https://unsplash.com/photos/V1O0gBfbrO8/download?w=1400"], "2": ["https://unsplash.com/photos/d8clU5pcFJQ/download?w=1400", "https://unsplash.com/photos/gKgL1WlE5KM/download?w=1400", "https://unsplash.com/photos/xdC1UrzmYiA/download?w=1400"], "3": ["https://unsplash.com/photos/JNuKyKXLh8U/download?w=1400", "https://unsplash.com/photos/nwsfGFADJu8/download?w=1400", "https://unsplash.com/photos/d8clU5pcFJQ/download?w=1400"], "4": ["https://unsplash.com/photos/nwsfGFADJu8/download?w=1400", "https://unsplash.com/photos/d8clU5pcFJQ/download?w=1400", "https://unsplash.com/photos/gKgL1WlE5KM/download?w=1400"]};let fotoT=null;
+function ponerFotos(i){const box=$('#fotos');clearInterval(fotoT);box.innerHTML=(FOTOS[i]||[]).map(u=>`<img src="${u}" alt="" loading="lazy">`).join('');const im=[...box.children];let n=0;if(!im.length)return;requestAnimationFrame(()=>im[0].classList.add('on'));fotoT=setInterval(()=>{im[n].classList.remove('on');n=(n+1)%im.length;im[n].classList.add('on')},3200)}
 $$('.tab').forEach(b=>b.onclick=()=>setCap(+b.dataset.i));setCap(0);
 function pdraw(){
   pt+=.016;const W=pc.clientWidth,H=pc.clientHeight;
@@ -767,6 +838,12 @@ $$('.filter').forEach(f=>f.onclick=()=>{
   const v=f.dataset.f;$$('.case').forEach(c=>c.classList.toggle('hide',v!='all'&&c.dataset.c!=v));
 });
 
+/* ===== Nova (chat) ===== */
+(function(){const pn=$('#novaPanel'),fr=$('#novaFrame'),URL_NOVA='https://eventum-whatsapp.novabtl.workers.dev/chat';
+const abrir=()=>{if(!fr.src)fr.src=URL_NOVA;pn.classList.add('open');pn.setAttribute('aria-hidden','false')};
+const cerrar=()=>{pn.classList.remove('open');pn.setAttribute('aria-hidden','true')};
+$('#novaBtn').onclick=()=>pn.classList.contains('open')?cerrar():abrir();$('#novaX').onclick=cerrar;
+$$('[data-nova]').forEach(b=>b.onclick=abrir);addEventListener('keydown',e=>{if(e.key==='Escape')cerrar()})})();
 /* ===== FAQ ===== */
 $$('.qa button').forEach(b=>b.onclick=()=>{
   const q=b.parentElement,a=q.querySelector('.ans'),open=q.classList.contains('open');
