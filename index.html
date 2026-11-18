@@ -781,14 +781,21 @@ manifestoWords();
 function count(el){const to=+el.dataset.to;let s=null;const step=ts=>{if(!s)s=ts;const p=Math.min(1,(ts-s)/1400);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 
 /* ===== Reveal ===== */
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('.count').forEach(count);if(e.target.id==='timeline')$('#tlFill').style.width='100%';io.unobserve(e.target)}}),{threshold:.15});
+// Las animaciones se repiten cada vez que vuelves a un apartado (al subir o bajar)
+const io=new IntersectionObserver(es=>es.forEach(e=>{const t=e.target;
+  if(e.isIntersecting){if(t.classList.contains('in'))return;t.classList.add('in');t.querySelectorAll('.count').forEach(count);if(t.id==='timeline')$('#tlFill').style.width='100%'}
+  else if(e.intersectionRatio===0){t.classList.remove('in');t.querySelectorAll('.count').forEach(c=>c.textContent='0');if(t.id==='timeline')$('#tlFill').style.width='0'}
+}),{threshold:[0,.15]});
 $$('.reveal,#timeline').forEach(el=>io.observe(el));
 
 /* ===== Eventos que producimos: aparecen difuminados y el título se escribe solo, uno tras otro ===== */
-(function(){const cards=[...$$('.types-grid .type')];cards.forEach(c=>{const h=c.querySelector('h3'),p=c.querySelector('p');c.dataset.t=h.textContent;h.textContent='';if(p)p.style.opacity=0;if(p)p.style.transition='opacity 1.4s'});
-let hecho=false;const go=()=>{if(hecho)return;hecho=true;let i=0;(function sig(){if(i>=cards.length)return;const c=cards[i++],h=c.querySelector('h3'),p=c.querySelector('p'),t=c.dataset.t;c.classList.add('vis');let k=0;h.innerHTML='<span class="cursor"></span>';
-const tm0=setTimeout(()=>{},0);const tm=setInterval(()=>{k++;h.innerHTML=t.slice(0,k)+'<span class="cursor"></span>';if(k>=t.length){clearInterval(tm);setTimeout(()=>{h.textContent=t;if(p)p.style.opacity=1},350);setTimeout(sig,650)}},75)})()};
-const o=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){go();o.disconnect()}},{threshold:.25});o.observe($('.types-grid'))})();
+(function(){const cards=[...$$('.types-grid .type')];let timers=[],corriendo=false;
+cards.forEach(c=>{const h=c.querySelector('h3'),p=c.querySelector('p');c.dataset.t=h.textContent;if(p)p.style.transition='opacity 1.4s'});
+const limpiar=()=>{timers.forEach(x=>{clearTimeout(x);clearInterval(x)});timers=[];corriendo=false;cards.forEach(c=>{c.classList.remove('vis');c.querySelector('h3').textContent='';const p=c.querySelector('p');if(p)p.style.opacity=0})};
+const go=()=>{if(corriendo)return;corriendo=true;let i=0;(function sig(){if(i>=cards.length)return;const c=cards[i++],h=c.querySelector('h3'),p=c.querySelector('p'),t=c.dataset.t;c.classList.add('vis');let k=0;h.innerHTML='<span class="cursor"></span>';
+const tm=setInterval(()=>{k++;h.innerHTML=t.slice(0,k)+'<span class="cursor"></span>';if(k>=t.length){clearInterval(tm);timers.push(setTimeout(()=>{h.textContent=t;if(p)p.style.opacity=1},350));timers.push(setTimeout(sig,650))}},75);timers.push(tm)})()};
+limpiar();
+new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>=.2)go();else if(e.intersectionRatio===0)limpiar()}),{threshold:[0,.2]}).observe($('.types-grid'))})();
 /* ===== Tipos: luz que sigue al mouse ===== */
 $$('.type').forEach(c=>c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--x',(e.clientX-r.left)+'px');c.style.setProperty('--y',(e.clientY-r.top)+'px')}));
 
