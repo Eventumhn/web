@@ -699,7 +699,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 /* WhatsApp de Nova: cuando el número esté conectado, se escribe aquí (con 504) y todos los botones de WhatsApp lo usan */
 const WA_NOVA='50499354582';
-if(WA_NOVA){const msg=encodeURIComponent('Hola Nova, quiero información para un evento');document.querySelectorAll('[data-wa]').forEach(a=>{a.href='https://wa.me/'+WA_NOVA+'?text='+msg;if(/^\+?504/.test(a.textContent.trim()))a.textContent='+'+WA_NOVA.replace(/^504(\d{4})(\d{4})$/,'504 $1-$2')})}
+if(WA_NOVA){const msg=encodeURIComponent('¡Hola, Nova! 👋 Vi la página de Eventum y me gustaría cotizar un evento. ¿Me ayudas?');document.querySelectorAll('[data-wa]').forEach(a=>{a.href='https://wa.me/'+WA_NOVA+'?text='+msg;if(/^\+?504/.test(a.textContent.trim()))a.textContent='+'+WA_NOVA.replace(/^504(\d{4})(\d{4})$/,'504 $1-$2')})}
 const reduce=false; // el dueño quiere ver siempre las animaciones
 $('#yr').textContent=new Date().getFullYear();
 
