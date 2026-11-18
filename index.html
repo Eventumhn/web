@@ -356,11 +356,11 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
 .nova-panel.open{opacity:1;transform:none;pointer-events:auto}
 .nova-panel iframe{width:100%;height:100%;border:0}
 .nova-x{position:absolute;top:10px;right:12px;z-index:2;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);font-size:1.2rem}
-@media (max-width:600px){.nova-burb{display:none}.nova-panel{right:16px;bottom:96px}.nova-btn{right:14px;bottom:14px}.nova-ic{width:52px;height:52px;border-radius:15px}.nova-ic .brand-logo{width:30px;height:30px}}
+@media (max-width:600px){.nova-burb{font-size:.78rem;padding:7px 11px}.nova-panel{right:16px;bottom:96px}.nova-btn{right:14px;bottom:14px}.nova-ic{width:52px;height:52px;border-radius:15px}.nova-ic .brand-logo{width:30px;height:30px}}
 .nova-btn{transition:transform .45s var(--ease),opacity .45s var(--ease)}
 .nova-btn.oculto{transform:translateY(140%);opacity:0;pointer-events:none}
-.nova-btn.corto .nova-burb{opacity:0;transform:translateX(12px) scale(.9);pointer-events:none}
-.nova-burb{transition:opacity .4s,transform .4s}
+.nova-btn.corto .nova-burb{opacity:.75;background:rgba(255,255,255,.55);color:#1a0c36;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);filter:saturate(.9);animation:none;box-shadow:0 8px 24px -12px rgba(0,0,0,.5)}
+.nova-burb{transition:opacity .6s,background .6s,transform .4s}
 .nova-btn.corto:hover .nova-burb{opacity:1;transform:none}
 /* WhatsApp */
 .wa{display:none;position:fixed;right:24px;bottom:24px;z-index:70;width:62px;height:62px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 14px 34px -8px rgba(37,211,102,.7);transition:.3s var(--ease)}
