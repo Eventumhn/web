@@ -411,7 +411,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 30px;color:var(--muted);f
 }
 /* Pendiente de contenido real: se muestran cuando haya fotos, logos, testimonios y video */
 #proyectos,.clients,.testi,#openReel,.menu a[href="#proyectos"],footer a[href="#proyectos"]{display:none!important}
-.hablemos{display:flex;flex-wrap:wrap;gap:12px}.hablemos .btn{justify-content:center}@media (max-width:600px){.hablemos .btn{flex:1 1 100%}}
+.survey:has(.hablemos){justify-content:flex-start;gap:30px}.hablemos{display:flex;flex-direction:column;gap:16px;max-width:360px}.hablemos .btn{justify-content:center;width:100%;padding-top:16px;padding-bottom:16px}@media (max-width:600px){.hablemos{max-width:none}}
 </style>
 </head>
 <body>
