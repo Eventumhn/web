@@ -267,12 +267,18 @@ nav.hidden{transform:translateY(-100%)}
 .process{background:var(--bg2)}
 .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:60px;position:relative}
 .timeline::before{content:"";position:absolute;top:26px;left:0;right:0;height:1.5px;background:var(--line)}
-.tl-fill{position:absolute;top:26px;left:0;height:1.5px;background:linear-gradient(90deg,var(--orange),var(--gold));width:0;transition:width 1.6s var(--ease)}
+.tl-fill{position:absolute;top:26px;left:0;height:3px;margin-top:-1px;border-radius:3px;background:linear-gradient(90deg,var(--orange),var(--gold));width:0;transition:width 5s linear}
+.tl-fill::after{content:"";position:absolute;right:-6px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:#fff;box-shadow:0 0 14px 4px var(--gold)}
 .tl{padding-right:22px;position:relative}
 .tl .c{width:54px;height:54px;border-radius:14px;transform:rotate(45deg);background:var(--bg2);border:1.5px solid var(--line);display:grid;place-items:center;font-family:Sora;font-weight:800;margin-bottom:26px;transition:.6s var(--ease)}
 .tl .c>*{transform:rotate(-45deg)}
-.timeline.in .tl .c{border-color:transparent;background:linear-gradient(135deg,var(--orange),var(--gold));box-shadow:0 0 0 6px rgba(238,75,34,.15),0 10px 30px -6px rgba(238,75,34,.7)}
-.timeline.in .tl:nth-child(3) .c{transition-delay:.25s}.timeline.in .tl:nth-child(4) .c{transition-delay:.5s}.timeline.in .tl:nth-child(5) .c{transition-delay:.75s}.timeline.in .tl:nth-child(6) .c{transition-delay:1s}
+.timeline.in .tl .c{border-color:transparent;background:linear-gradient(135deg,var(--orange),var(--gold));transition:background .4s,border-color .4s;box-shadow:0 0 0 6px rgba(238,75,34,.15),0 10px 30px -6px rgba(238,75,34,.7)}
+.timeline.in .tl:nth-child(2) .c{transition-delay:.05s}.timeline.in .tl:nth-child(3) .c{transition-delay:1.05s}.timeline.in .tl:nth-child(4) .c{transition-delay:2.05s}.timeline.in .tl:nth-child(5) .c{transition-delay:3.05s}.timeline.in .tl:nth-child(6) .c{transition-delay:4.05s}
+.timeline.in .tl .c{animation:destello .9s ease-out both}
+.timeline.in .tl:nth-child(2) .c{animation-delay:.05s}.timeline.in .tl:nth-child(3) .c{animation-delay:1.05s}.timeline.in .tl:nth-child(4) .c{animation-delay:2.05s}.timeline.in .tl:nth-child(5) .c{animation-delay:3.05s}.timeline.in .tl:nth-child(6) .c{animation-delay:4.05s}
+@keyframes destello{0%{box-shadow:0 0 0 0 rgba(242,184,75,.9)}40%{box-shadow:0 0 0 16px rgba(242,184,75,.25),0 0 40px 10px rgba(238,75,34,.9)}100%{box-shadow:0 0 0 6px rgba(238,75,34,.15),0 10px 30px -6px rgba(238,75,34,.7)}}
+.timeline.in .tl>div:last-child{border-color:rgba(238,75,34,.45);transition:border-color .6s,transform .35s var(--ease),background .35s}
+.timeline.in .tl:nth-child(3)>div:last-child{transition-delay:1.05s,0s,0s}.timeline.in .tl:nth-child(4)>div:last-child{transition-delay:2.05s,0s,0s}.timeline.in .tl:nth-child(5)>div:last-child{transition-delay:3.05s,0s,0s}.timeline.in .tl:nth-child(6)>div:last-child{transition-delay:4.05s,0s,0s}
 .tl>div:last-child{background:rgba(30,18,56,.55);border:1px solid var(--line);border-radius:16px;padding:16px 16px 18px;margin-right:10px;transition:.35s var(--ease)}
 .tl:hover>div:last-child{border-color:rgba(238,75,34,.55);transform:translateY(-5px);background:rgba(238,75,34,.08)}
 .tl-fill{box-shadow:0 0 14px rgba(238,75,34,.8)}
